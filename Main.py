@@ -29,7 +29,6 @@ def get_shop_dict_by_dishes(dishes_list, person_count):
     for one_dish in dishes_list:
         if one_dish in cookbook_dict:
             one_dish_ingredients_dict = get_one_dish_ingredients_dict(cookbook_dict[one_dish])
-
             print(f'{one_dish} на {person_count} персон:')  #####
             for ingredient in one_dish_ingredients_dict:
                 one_ingredient_measures_dict = one_dish_ingredients_dict[ingredient]
@@ -87,11 +86,27 @@ def get_one_dish_ingredients_dict(ingredients_list):
 
 
 if __name__ == '__main__':
-    print(f'\nCook_book = ')
+    print(f'\nЗАДАНИЕ 1: Cook_book = ')
     pprint(Tools.get_cookbook())
 
-    pprint(get_shop_dict_by_dishes(['Фахитос', 'Омлет'], "Ого-го!"))
+    print(f'\nЗАДАНИЕ 2: Блюда')
     pprint(get_shop_dict_by_dishes(['Фахитос', 'Омлет'], 2))
     pprint(get_shop_dict_by_dishes(['Омлет'], 2))
     pprint(get_shop_dict_by_dishes(['Омлет', 'Омлет'], 1))
     pprint(get_shop_dict_by_dishes(['Утка по-пекински', 'Запеченный картофель'], 100))
+
+    print(f'\nЗАДАНИЕ 3: Файлы')
+    filenames_list = Tools.get_list_of_directory_files_by_template('[0-9]*.txt')
+    print(f'\nСписок файлов для конкатенации: {filenames_list}')
+    for filename in filenames_list:
+        print(f'\n\t{filename}')
+        Tools.print_txt_file(filename)
+
+    sorted_filenames_list = Tools.get_sorted_list_of_files_by_rule_1(filenames_list)
+    print(f'\nСписок файлов в необходимом порядке для конкатенации: {sorted_filenames_list}')
+
+    cat_file_name = 'general.cat'
+    Tools.cat(sorted_filenames_list, cat_file_name)
+    print(f'\n\t{cat_file_name}')
+    Tools.print_txt_file(cat_file_name)
+
