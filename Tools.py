@@ -1,5 +1,6 @@
 import os
 import glob
+from pprint import pprint
 
 _COOKBOOK = os.path.join(os.getcwd(), "recipes.data")
 
@@ -51,32 +52,48 @@ def print_txt_file(file_name):
         print(f'При открытии файла "{file_name}" возникли проблемы: \n\t{other}\n')
 
 
-def cat(files_list, cat_file_name):
-    # if len(files_list) == 0:
-    #     print('Не указаны файлы для конкатенации. Результат операции - пустой файл!')
-    #     return
-
+def cat(head_list, cat_file_name):
     try:
         with open(cat_file_name, 'w', encoding='utf-8') as cat_file:
             # Файлы сцепляются в порядке следования элементов списка:
-            for adding_file_name in files_list:
+            for adding_file_head_tuple in head_list:
+                filename, lines_count = adding_file_head_tuple
                 try:
-                    with open(adding_file_name, 'r', encoding='utf-8') as add_file:
+                    with open(filename, 'r', encoding='utf-8') as add_file:
+                        cat_file.write(filename + '\n')
+                        cat_file.write(str(lines_count) + '\n')
                         for line in add_file:
-                            # cat_file.write(add_file.readline())
                             cat_file.write(line)
                 except FileNotFoundError as ex:
-                    print(f'File "{cat_file_name}" not found...\n  {ex}\n')
+                    print(f'File "{add_file}" not found...\n  {ex}\n')
                 except OSError as other:
-                    print(f'При открытии файла "{adding_file_name}" возникли проблемы: \n   {other}\n')
+                    print(f'При открытии файла "{add_file}" возникли проблемы: \n   {other}\n')
     except FileNotFoundError as ex:
-        print(f'File "{cat_file_name}" not found...\n  {ex}\n')
+        print(f'File "{cat_file}" not found...\n  {ex}\n')
     except OSError as other:
-        print(f'При открытии файла "{cat_file_name}" возникли проблемы: \n   {other}\n')
+        print(f'При открытии файла "{cat_file}" возникли проблемы: \n   {other}\n')
 
 
 def get_sorted_list_of_files_by_rule_1(files_list):
-    return files_list
+    head_dict = dict()
+    for filename in files_list:
+        try:
+            with open(filename, 'r', encoding='utf-8') as f:
+                line_counter = 0
+                for line in f:
+                    line_counter += 1
+        except FileNotFoundError as ex:
+            print(f'File "{filename}" not found...\n\t{ex}\n')
+            exit(1)
+        except OSError as other:
+            print(f'При открытии файла "{filename}" возникли st: \n\t{other}\n')
+            exit(1)
+        else:
+            head_dict[filename] = line_counter
+
+    head_list = list(head_dict.items())
+    head_list.sort(key=lambda i: i[1])
+    return head_list
 
 
 def get_list_of_directory_files_by_template(template):
