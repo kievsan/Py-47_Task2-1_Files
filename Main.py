@@ -21,7 +21,7 @@ def get_shop_dict_by_dishes(dishes_list, person_count):
     """
 
     print(f'\nЗадание: список блюд dishes_list: {dishes_list}')
-    print(f'         кол-во блюд person_count: {person_count}\n')
+    print(f'\t\t кол-во блюд person_count: {person_count}\n')
 
     cookbook_dict = Tools.get_cookbook()
 
@@ -29,7 +29,7 @@ def get_shop_dict_by_dishes(dishes_list, person_count):
     for one_dish in dishes_list:
         if one_dish in cookbook_dict:
             one_dish_ingredients_dict = get_one_dish_ingredients_dict(cookbook_dict[one_dish])
-            print(f'{one_dish} на {person_count} персон:')  #####
+            print(f'{one_dish} на {person_count} персон:')
             for ingredient in one_dish_ingredients_dict:
                 one_ingredient_measures_dict = one_dish_ingredients_dict[ingredient]
                 new_quantity = get_multi_quantity(one_ingredient_measures_dict['quantity'], person_count)
@@ -94,6 +94,7 @@ if __name__ == '__main__':
     pprint(get_shop_dict_by_dishes(['Омлет'], 2))
     pprint(get_shop_dict_by_dishes(['Омлет', 'Омлет'], 1))
     pprint(get_shop_dict_by_dishes(['Утка по-пекински', 'Запеченный картофель'], 100))
+    # pprint(get_shop_dict_by_dishes(['Фахитос'], 'Ого-го'))
 
     print(f'\n\nЗАДАНИЕ 3: Файлы')
     filenames_list = Tools.get_list_of_directory_files_by_template('[0-9]*.txt')
