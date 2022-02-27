@@ -1,6 +1,5 @@
 import os
 import glob
-from pprint import pprint
 
 _COOKBOOK = os.path.join(os.getcwd(), "recipes.data")
 
@@ -27,9 +26,9 @@ def get_cookbook(refresh=False):
                 get_cookbook.recipes_dict[recipe] = one_dish_ingredients_list
                 recipes_file.readline()
     except FileNotFoundError as ex:
-        print(f'File "{recipes_file}" not found...\n  {ex}\n')
+        print(f'File "{recipes_file}" not found...\n\t{ex}\n')
     except OSError as other:
-        print(f'При открытии файла "{recipes_file}" возникли проблемы: \n   {other}\n')
+        print(f'При открытии файла "{recipes_file}" возникли проблемы: \n\t{other}\n')
     return get_cookbook.recipes_dict
 
 
@@ -65,13 +64,13 @@ def cat(head_list, cat_file_name):
                         for line in add_file:
                             cat_file.write(line)
                 except FileNotFoundError as ex:
-                    print(f'File "{add_file}" not found...\n  {ex}\n')
+                    print(f'File "{add_file}" not found...\n\t{ex}\n')
                 except OSError as other:
-                    print(f'При открытии файла "{add_file}" возникли проблемы: \n   {other}\n')
+                    print(f'При открытии файла "{add_file}" возникли проблемы: \n\t{other}\n')
     except FileNotFoundError as ex:
         print(f'File "{cat_file}" not found...\n  {ex}\n')
     except OSError as other:
-        print(f'При открытии файла "{cat_file}" возникли проблемы: \n   {other}\n')
+        print(f'При открытии файла "{cat_file}" возникли проблемы: \n\t{other}\n')
 
 
 def get_sorted_list_of_files_by_rule_1(files_list):
@@ -86,7 +85,7 @@ def get_sorted_list_of_files_by_rule_1(files_list):
             print(f'File "{filename}" not found...\n\t{ex}\n')
             exit(1)
         except OSError as other:
-            print(f'При открытии файла "{filename}" возникли st: \n\t{other}\n')
+            print(f'При открытии файла "{filename}" возникли проблемы: \n\t{other}\n')
             exit(1)
         else:
             head_dict[filename] = line_counter
